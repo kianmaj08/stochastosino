@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stochastosino - Premium Casino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Stochastosino</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="showGame('poker')">Poker</a></li>
+                    <li><a href="#" onclick="showGame('blackjack')">Blackjack</a></li>
+                    <li><a href="#" onclick="showGame('slots')">Slots</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Homepage -->
+        <section class="homepage active">
+            <div class="hero">
+                <h1>Stochastosino</h1>
+                <p>Experience the future of premium online gaming with cutting-edge design and seamless gameplay.</p>
+            </div>
+            
+            <div class="game-grid">
+                <div class="game-card" onclick="showGame('poker')">
+                    <div class="game-icon">♠</div>
+                    <div class="game-title">Texas Hold'em</div>
+                    <div class="game-desc">Master the art of poker with our sophisticated card engine</div>
+                </div>
+                
+                <div class="game-card" onclick="showGame('blackjack')">
+                    <div class="game-icon">♥</div>
+                    <div class="game-title">Blackjack</div>
+                    <div class="game-desc">Challenge the dealer in the classic game of 21</div>
+                </div>
+                
+                <div class="game-card" onclick="showGame('slots')">
+                    <div class="game-icon">♦</div>
+                    <div class="game-title">Slots</div>
+                    <div class="game-desc">Spin the reels of fortune with premium slot machines</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Poker Game -->
+        <section class="game-section" id="poker">
+            <div class="game-header">
+                <button class="back-btn" onclick="showHome()">
+                    ← Back to Games
+                </button>
+                <h2 class="game-title-header">Texas Hold'em</h2>
+            </div>
+            
+            <div class="poker-container">
+                <div class="game-info">
+                    <div class="info-item">
+                        <div class="info-label">Balance</div>
+                        <div class="info-value" id="playerChips">1,000</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Pot</div>
+                        <div class="info-value" id="potAmount">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Stage</div>
+                        <div class="info-value" id="gameRound">Ready</div>
+                    </div>
+                </div>
+
+                <div class="game-status" id="gameStatus">
+                    Start a new game to begin your poker journey
+                </div>
+
+                <div class="poker-table">
+                    <div class="community-cards" id="communityCards">
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                    </div>
+                    
+                    <div class="player-hand" id="playerHand">
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                    </div>
+                </div>
+
+                <div class="poker-actions">
+                    <button class="poker-btn primary" id="newGameBtn" onclick="newPokerGame()">New Game</button>
+                    <button class="poker-btn" id="foldBtn" onclick="fold()" disabled>Fold</button>
+                    <button class="poker-btn" id="callBtn" onclick="call()" disabled>Call</button>
+                    <button class="poker-btn" id="raiseBtn" onclick="raise()" disabled>Raise</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blackjack -->
+        <section class="game-section" id="blackjack">
+            <div class="game-header">
+                <button class="back-btn" onclick="showHome()">
+                    ← Back to Games
+                </button>
+                <h2 class="game-title-header">Blackjack</h2>
+            </div>
+            
+            <div class="coming-soon">
+                <h2>Coming Soon</h2>
+                <p>An exceptional blackjack experience is in development</p>
+            </div>
+        </section>
+
+        <!-- Slots -->
+        <section class="game-section" id="slots">
+            <div class="game-header">
+                <button class="back-btn" onclick="showHome()">
+                    ← Back to Games
+                </button>
+                <h2 class="game-title-header">Premium Slots</h2>
+            </div>
+            
+            <div class="coming-soon">
+                <h2>Coming Soon</h2>
+                <p>Revolutionary slot machines with immersive gameplay</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
