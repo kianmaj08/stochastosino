@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stochastosino - Premium Casino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a0f0d;
+            --primary-green: #1a3b2e;
+            --accent-green: #2d5a47;
+            --surface-dark: #141b17;
+            --surface-light: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #a1a9b8;
+            --text-muted: #6b7580;
+            --accent-gold: #d4af37;
+            --glass-bg: rgba(20, 27, 23, 0.6);
+            --shadow-soft: 0 4px 32px rgba(0, 0, 0, 0.3);
+            --shadow-hard: 0 8px 64px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(42, 90, 71, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(52, 115, 88, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--primary-dark) 0%, #0f1a14 50%, var(--surface-dark) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-feature-settings: "kern" 1;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(10, 15, 13, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.25rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-menu li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu li a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--surface-light);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .nav-menu li a:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .nav-menu li a:hover::before {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .homepage, .game-section {
+            display: none;
+        }
+
+        .homepage.active, .game-section.active {
+            display: block;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            group: hover;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-hard);
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            transition: transform 0.4s ease;
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+        }
+
+        .game-card:hover .game-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .game-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .game-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Game Section */
+        .game-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .back-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+            color: var(--text-primary);
+            transform: translateX(-2px);
+        }
+
+        .game-title-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        /* Poker Styles */
+        .poker-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-light);
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .game-status {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            color: var(--text-secondary);
+        }
+
+        .poker-table {
+            background: 
+                radial-gradient(ellipse at center, rgba(42, 90, 71, 0.4) 0%, transparent 70%),
+                linear-gradient(135deg, var(--accent-green) 0%, #1a3b2e 100%);
+            border: 2px solid var(--border-light);
+            border-radius: 40px;
+            padding: 3rem 2rem;
+            margin: 3rem auto;
+            max-width: 800px;
+            position: relative;
+            box-shadow: inset 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .community-cards, .player-hand {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 75px;
+            height: 108px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.15),
+                0 1px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px) rotate(2deg);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card.back {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: var(--accent-gold);
+            border-color: var(--border-light);
+            font-size: 1.5rem;
+        }
+
+        .card .suit {
+            font-size: 1.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .red { color: #dc2626; }
+        .black { color: #1f2937; }
+
+        .poker-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .poker-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 1.25rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poker-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #b8860b 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .poker-btn:hover:not(:disabled) {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+        }
+
+        .poker-btn:hover:not(:disabled)::before {
+            opacity: 0.1;
+        }
+
+        .poker-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .poker-btn.primary {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #b8860b 100%);
+            color: var(--primary-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .poker-btn.primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #b8860b 0%, var(--accent-gold) 100%);
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            text-align: center;
+            padding: 5rem 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 0deg, rgba(212, 175, 55, 0.03) 90deg, transparent 180deg);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .coming-soon h2 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-menu {
+                gap: 0.25rem;
+            }
+            
+            .nav-menu li a {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .game-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .game-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .poker-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .game-info {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .info-value {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                width: 65px;
+                height: 94px;
+                font-size: 1rem;
+            }
+            
+            .card .suit {
+                font-size: 1.5rem;
+            }
+            
+            .poker-actions {
+                gap: 0.75rem;
+            }
+            
+            .poker-btn {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+            
+            .poker-table {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Stochastosino</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="showGame('poker')">Poker</a></li>
+                    <li><a href="#" onclick="showGame('blackjack')">Blackjack</a></li>
+                    <li><a href="#" onclick="showGame('slots')">Slots</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Homepage -->
+        <section class="homepage active">
+            <div class="hero">
+                <h1>Stochastosino</h1>
+                <p>Experience the future of premium online gaming with cutting-edge design and seamless gameplay.</p>
+            </div>
+            
+            <div class="game-grid">
+                <div class="game-card" onclick="showGame('poker')">
+                    <div class="game-icon">♠</div>
+                    <div class="game-title">Texas Hold'em</div>
+                    <div class="game-desc">Master the art of poker with our sophisticated card engine</div>
+                </div>
+                
+                <div class="game-card" onclick="showGame('blackjack')">
+                    <div class="game-icon">♥</div>
+                    <div class="game-title">Blackjack</div>
+                    <div class="game-desc">Challenge the dealer in the classic game of 21</div>
+                </div>
+                
+                <div class="game-card" onclick="showGame('slots')">
+                    <div class="game-icon">♦</div>
+                    <div class="game-title">Slots</div>
+                    <div class="game-desc">Spin the reels of fortune with premium slot machines</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Poker Game -->
+        <section class="game-section" id="poker">
+            <div class="game-header">
+                <button class="back-btn" onclick="showHome()">
+                    ← Back to Games
+                </button>
+                <h2 class="game-title-header">Texas Hold'em</h2>
+            </div>
+            
+            <div class="poker-container">
+                <div class="game-info">
+                    <div class="info-item">
+                        <div class="info-label">Balance</div>
+                        <div class="info-value" id="playerChips">1,000</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Pot</div>
+                        <div class="info-value" id="potAmount">0</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Stage</div>
+                        <div class="info-value" id="gameRound">Ready</div>
+                    </div>
+                </div>
+
+                <div class="game-status" id="gameStatus">
+                    Start a new game to begin your poker journey
+                </div>
+
+                <div class="poker-table">
+                    <div class="community-cards" id="communityCards">
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                    </div>
+                    
+                    <div class="player-hand" id="playerHand">
+                        <div class="card back">?</div>
+                        <div class="card back">?</div>
+                    </div>
+                </div>
+
+                <div class="poker-actions">
+                    <button class="poker-btn primary" id="newGameBtn" onclick="newPokerGame()">New Game</button>
+                    <button class="poker-btn" id="foldBtn" onclick="fold()" disabled>Fold</button>
+                    <button class="poker-btn" id="callBtn" onclick="call()" disabled>Call</button>
+                    <button class="poker-btn" id="raiseBtn" onclick="raise()" disabled>Raise</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blackjack -->
+        <section class="game-section" id="blackjack">
+            <div class="game-header">
+                <button class="back-btn" onclick="showHome()">
+                    ← Back to Games
+                </button>
+                <h2 class="game-title-header">Blackjack</h2>
+            </div>
+            
+            <div class="coming-soon">
+                <h2>Coming Soon</h2>
+                <p>An exceptional blackjack experience is in development</p>
+            </div>
+        </section>
+
+        <!-- Slots -->
+        <section class="game-section" id="slots">
+            <div class="game-header">
+                <button class="back-btn" onclick="showHome()">
+                    ← Back to Games
+                </button>
+                <h2 class="game-title-header">Premium Slots</h2>
+            </div>
+            
+            <div class="coming-soon">
+                <h2>Coming Soon</h2>
+                <p>Revolutionary slot machines with immersive gameplay</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Game State
+        let gameState = {
+            playerChips: 1000,
+            pot: 0,
+            playerCards: [],
+            communityCards: [],
+            currentBet: 0,
+            gameRound: 'waiting',
+            gameActive: false
+        };
+
+        // Card deck
+        const suits = ['♠', '♥', '♦', '♣'];
+        const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        let deck = [];
+
+        // Navigation with smooth transitions
+        function showHome() {
+            document.querySelector('.homepage').classList.add('active');
+            document.querySelectorAll('.game-section').forEach(section => {
+                section.classList.remove('active');
+            });
+        }
+
+        function showGame(game) {
+            document.querySelector('.homepage').classList.remove('active');
+            document.querySelectorAll('.game-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(game).classList.add('active');
+        }
+
+        // Poker Functions
+        function createDeck() {
+            deck = [];
+            for (let suit of suits) {
+                for (let value of values) {
+                    deck.push({
+                        value: value,
+                        suit: suit,
+                        color: (suit === '♥' || suit === '♦') ? 'red' : 'black'
+                    });
+                }
+            }
+            shuffleDeck();
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function drawCard() {
+            return deck.pop();
+        }
+
+        function displayCard(card) {
+            return `
+                <div class="card ${card.color}">
+                    <div style="font-size: 0.95rem;">${card.value}</div>
+                    <div class="suit">${card.suit}</div>
+                </div>
+            `;
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat().format(num);
+        }
+
+        function newPokerGame() {
+            gameState.pot = 50;
+            gameState.playerChips -= 25;
+            gameState.currentBet = 25;
+            gameState.gameRound = 'Pre-Flop';
+            gameState.gameActive = true;
+            gameState.playerCards = [];
+            gameState.communityCards = [];
+
+            createDeck();
+            gameState.playerCards.push(drawCard());
+            gameState.playerCards.push(drawCard());
+
+            updateDisplay();
+            updateStatus('Your cards have been dealt. Make your move.');
+
+            document.getElementById('foldBtn').disabled = false;
+            document.getElementById('callBtn').disabled = false;
+            document.getElementById('raiseBtn').disabled = false;
+            document.getElementById('newGameBtn').disabled = true;
+        }
+
+        function updateDisplay() {
+            document.getElementById('playerChips').textContent = formatNumber(gameState.playerChips);
+            document.getElementById('potAmount').textContent = formatNumber(gameState.pot);
+            document.getElementById('gameRound').textContent = gameState.gameRound;
+
+            const playerHandDiv = document.getElementById('playerHand');
+            if (gameState.playerCards.length > 0) {
+                playerHandDiv.innerHTML = gameState.playerCards.map(card => displayCard(card)).join('');
+            }
+
+            const communityDiv = document.getElementById('communityCards');
+            let communityHTML = '';
+            
+            for (let i = 0; i < 5; i++) {
+                if (i < gameState.communityCards.length) {
+                    communityHTML += displayCard(gameState.communityCards[i]);
+                } else {
+                    communityHTML += '<div class="card back">?</div>';
+                }
+            }
+            communityDiv.innerHTML = communityHTML;
+        }
+
+        function updateStatus(message) {
+            document.getElementById('gameStatus').textContent = message;
+        }
+
+        function fold() {
+            gameState.gameActive = false;
+            updateStatus('You folded. The house wins this round.');
+            endGame();
+        }
+
+        function call() {
+            const callAmount = Math.min(gameState.currentBet, gameState.playerChips);
+            gameState.playerChips -= callAmount;
+            gameState.pot += callAmount;
+            
+            updateDisplay();
+            nextRound();
+        }
+
+        function raise() {
+            const raiseAmount = Math.min(50, gameState.playerChips);
+            gameState.playerChips -= raiseAmount;
+            gameState.pot += raiseAmount;
+            gameState.currentBet += raiseAmount;
+            
+            updateDisplay();
+            updateStatus(`You raised by ${formatNumber(raiseAmount)} chips.`);
+            
+            setTimeout(nextRound, 1500);
+        }
+
+        function nextRound() {
+            if (gameState.gameRound === 'Pre-Flop') {
+                gameState.communityCards.push(drawCard());
+                gameState.communityCards.push(drawCard());
+                gameState.communityCards.push(drawCard());
+                gameState.gameRound = 'Flop';
+                updateStatus('The flop has been revealed.');
+            } else if (
