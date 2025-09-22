@@ -138,3 +138,160 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+<!-- Blackjack Section (nach der poker section einfügen) -->
+<section id="blackjack" class="game-section">
+    <div class="game-container">
+        <div class="game-header">
+            <h2>Blackjack</h2>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-label">Chips:</span>
+                    <span id="blackjack-chips" class="stat-value">1,000</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Einsatz:</span>
+                    <span id="blackjack-bet" class="stat-value">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="blackjack-table">
+            <!-- Dealer Hand -->
+            <div class="dealer-section">
+                <h3>Dealer <span id="dealer-value"></span></h3>
+                <div id="blackjack-dealer-hand" class="hand"></div>
+            </div>
+
+            <!-- Player Hand -->
+            <div class="player-section">
+                <h3>Deine Hand <span id="player-value"></span></h3>
+                <div id="blackjack-player-hand" class="hand"></div>
+            </div>
+        </div>
+
+        <!-- Betting Controls -->
+        <div class="betting-controls">
+            <button onclick="setBet(10)" class="bet-btn">10</button>
+            <button onclick="setBet(25)" class="bet-btn">25</button>
+            <button onclick="setBet(50)" class="bet-btn">50</button>
+            <button onclick="setBet(100)" class="bet-btn">100</button>
+        </div>
+
+        <!-- Game Controls -->
+        <div class="game-controls">
+            <button onclick="startBlackjackGame()" class="action-btn">Deal</button>
+            <button onclick="playerHit()" class="action-btn">Hit</button>
+            <button onclick="playerStand()" class="action-btn">Stand</button>
+        </div>
+    </div>
+</section>
+
+<!-- Roulette Section -->
+<section id="roulette" class="game-section">
+    <div class="game-container">
+        <div class="game-header">
+            <h2>Roulette</h2>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-label">Chips:</span>
+                    <span id="roulette-chips" class="stat-value">1,000</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Gesamteinsatz:</span>
+                    <span id="roulette-total-bet" class="stat-value">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="roulette-wheel">
+            <div id="roulette-result" class="wheel-result">
+                <div class="winning-number">-</div>
+            </div>
+        </div>
+
+        <div class="roulette-table">
+            <!-- Number Grid -->
+            <div class="number-grid">
+                <!-- Numbers 1-36 werden dynamisch generiert -->
+            </div>
+
+            <!-- Outside Bets -->
+            <div class="outside-bets">
+                <div class="bet-area red" onclick="placeBet('red', 10)">
+                    <span>ROT</span>
+                    <span class="bet-amount" id="bet-red">0</span>
+                </div>
+                <div class="bet-area black" onclick="placeBet('black', 10)">
+                    <span>SCHWARZ</span>
+                    <span class="bet-amount" id="bet-black">0</span>
+                </div>
+                <div class="bet-area green" onclick="placeBet('even', 10)">
+                    <span>GERADE</span>
+                    <span class="bet-amount" id="bet-even">0</span>
+                </div>
+                <div class="bet-area green" onclick="placeBet('odd', 10)">
+                    <span>UNGERADE</span>
+                    <span class="bet-amount" id="bet-odd">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button onclick="spinRoulette()" class="action-btn spin-btn">SPIN</button>
+            <button onclick="clearBets()" class="action-btn">Einsätze löschen</button>
+        </div>
+    </div>
+</section>
+
+<!-- Slots Section -->
+<section id="slots" class="game-section">
+    <div class="game-container">
+        <div class="game-header">
+            <h2>Slot Machine</h2>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-label">Chips:</span>
+                    <span id="slots-chips" class="stat-value">1,000</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Einsatz:</span>
+                    <span id="slots-bet" class="stat-value">10</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="slots-machine">
+            <div class="slots-display">
+                <div class="reel">
+                    <div id="reel-1" class="reel-symbol">🍒</div>
+                </div>
+                <div class="reel">
+                    <div id="reel-2" class="reel-symbol">🍋</div>
+                </div>
+                <div class="reel">
+                    <div id="reel-3" class="reel-symbol">🍊</div>
+                </div>
+            </div>
+
+            <div class="paytable">
+                <h4>Gewinntabelle</h4>
+                <div class="payout-row">💎💎💎 = 100x</div>
+                <div class="payout-row">⭐⭐⭐ = 50x</div>
+                <div class="payout-row">🔔🔔🔔 = 20x</div>
+                <div class="payout-row">Beliebige 3 = 20x</div>
+                <div class="payout-row">2 gleiche = 5x</div>
+            </div>
+        </div>
+
+        <div class="slots-controls">
+            <button onclick="setBetAmount(10)" class="bet-btn">10</button>
+            <button onclick="setBetAmount(25)" class="bet-btn">25</button>
+            <button onclick="setBetAmount(50)" class="bet-btn">50</button>
+        </div>
+
+        <div class="game-controls">
+            <button onclick="spinSlots()" class="action-btn slots-spin-btn">SPIN</button>
+        </div>
+    </div>
+</section>
